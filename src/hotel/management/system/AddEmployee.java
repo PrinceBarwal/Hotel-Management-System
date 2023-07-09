@@ -184,6 +184,10 @@ public class AddEmployee extends JFrame implements ActionListener {
             Pattern phonepattern = Pattern.compile("^[0-9]{10}$");
             Matcher phonematcher = phonepattern.matcher(phone);
             
+            
+            Pattern salarypattern = Pattern.compile("^[0-9]{2,10}$");
+            Matcher salarymatcher = salarypattern.matcher(salary);
+            
             Pattern aadharpattern = Pattern.compile("[0-9]{12}$");
             Matcher aadharmatcher = aadharpattern.matcher(aadhar);
             
@@ -199,8 +203,8 @@ public class AddEmployee extends JFrame implements ActionListener {
             else if(job == null){
                 JOptionPane.showMessageDialog(null, "Job is required" ); 
             }
-            else if(salary.equals("")){
-                JOptionPane.showMessageDialog(null, "Salary is Required");
+            else if(!(salarymatcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Salary");
             }
             else if(!(emailmatcher.matches())){
                 JOptionPane.showMessageDialog(null, "Enter Correct Email");
