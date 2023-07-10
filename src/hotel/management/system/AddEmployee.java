@@ -185,7 +185,7 @@ public class AddEmployee extends JFrame implements ActionListener {
             Matcher phonematcher = phonepattern.matcher(phone);
             
             
-            Pattern salarypattern = Pattern.compile("^[0-9]{2,10}$");
+            Pattern salarypattern = Pattern.compile("^[0-9]{2,15}$");
             Matcher salarymatcher = salarypattern.matcher(salary);
             
             Pattern aadharpattern = Pattern.compile("[0-9]{12}$");

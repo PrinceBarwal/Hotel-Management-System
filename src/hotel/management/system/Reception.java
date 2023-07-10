@@ -28,6 +28,7 @@ public class Reception extends JFrame implements ActionListener{
         rooms.setFont(new Font("Tahoma" , Font.PLAIN , 15));
         rooms.setForeground(Color.WHITE);
         rooms.setBackground(Color.BLACK);
+        rooms.addActionListener(this);
         add(rooms);
         
         
@@ -37,6 +38,7 @@ public class Reception extends JFrame implements ActionListener{
         department.setFont(new Font("Tahoma" , Font.PLAIN , 15));
         department.setForeground(Color.WHITE);
         department.setBackground(Color.BLACK);
+        department.addActionListener(this);
         add(department);
         
 //        ######## Add Employee Button ####### 
@@ -136,7 +138,15 @@ public class Reception extends JFrame implements ActionListener{
         }
         else if(ae.getSource() == newCustomer){
             setVisible(false);
-            new AddCustomer().setVisible(true);
+            new AddCustomer();
+        }
+        else if(ae.getSource() == rooms){
+            setVisible(false);
+            new Room();
+        }
+        else if(ae.getSource() == department){
+            setVisible(false);
+            new Department();
         }
     }
     
