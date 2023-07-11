@@ -191,8 +191,14 @@ public class AddEmployee extends JFrame implements ActionListener {
             Pattern aadharpattern = Pattern.compile("[0-9]{12}$");
             Matcher aadharmatcher = aadharpattern.matcher(aadhar);
             
-            if(name.equals("")){
+            Pattern namepattern = Pattern.compile("^[A-Za-z\\s'-]+$");
+            Matcher namematcher = namepattern.matcher(name);
+            
+            if(name.equals("") ){
                 JOptionPane.showMessageDialog(null, "Name is Required");
+            }
+            else if(!(namematcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Name");
             }
             else if(age.equals("")){
                 JOptionPane.showMessageDialog(null, "Age is Required");
@@ -206,11 +212,11 @@ public class AddEmployee extends JFrame implements ActionListener {
             else if(!(salarymatcher.matches())){
                 JOptionPane.showMessageDialog(null, "Enter Correct Salary");
             }
-            else if(!(emailmatcher.matches())){
-                JOptionPane.showMessageDialog(null, "Enter Correct Email");
-            }
             else if(!(phonematcher.matches())){
                 JOptionPane.showMessageDialog(null , "Enter Correct Phone Number");
+            }
+            else if(!(emailmatcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Email");
             }
             else if(!(aadharmatcher.matches())){
                 JOptionPane.showMessageDialog(null , "Enter a valid aadhar number ");

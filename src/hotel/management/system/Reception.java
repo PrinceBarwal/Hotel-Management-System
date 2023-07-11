@@ -134,7 +134,8 @@ public class Reception extends JFrame implements ActionListener{
     
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == logout){
-            setVisible(false);
+//            setVisible(false);
+            System.exit(0);
         }
         else if(ae.getSource() == newCustomer){
             setVisible(false);
