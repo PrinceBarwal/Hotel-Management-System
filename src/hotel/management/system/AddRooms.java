@@ -2,6 +2,7 @@ package hotel.management.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.regex.*;
 
 
 public class AddRooms extends JFrame implements ActionListener{
@@ -50,6 +51,7 @@ public class AddRooms extends JFrame implements ActionListener{
         availablecombo = new JComboBox(availableoption);
         availablecombo.setBounds(190 , 150 , 150 , 30);
         availablecombo.setBackground(Color.WHITE);
+        availablecombo.setSelectedItem(null);
         add(availablecombo);
         
         
@@ -64,6 +66,7 @@ public class AddRooms extends JFrame implements ActionListener{
         cleancombo = new JComboBox(cleaningoption);
         cleancombo.setBounds(190 , 200 , 150 , 30);
         cleancombo.setBackground(Color.WHITE);
+        cleancombo.setSelectedItem(null);
         add(cleancombo);
         
         
@@ -89,6 +92,7 @@ public class AddRooms extends JFrame implements ActionListener{
         typecombo = new JComboBox(typeoption);
         typecombo.setBounds(190 , 300 , 150 , 30);
         typecombo.setBackground(Color.WHITE);
+        typecombo.setSelectedItem(null);
         add(typecombo);
         
         
@@ -132,7 +136,36 @@ public class AddRooms extends JFrame implements ActionListener{
             String price = tfprice.getText();
             String type = (String)typecombo.getSelectedItem();
             
-            try{
+            Pattern roompattern = Pattern.compile("^[0-9]{1,3}$");
+            Matcher roommatcher = roompattern.matcher(roomNumber);
+            
+            Pattern pricepattern = Pattern.compile("[0-9]{2,5}$");
+            Matcher pricematcher = pricepattern.matcher(price);
+            
+            
+            if(roomNumber.equals("")){
+                JOptionPane.showMessageDialog(null, "Room Number is Required");
+            }
+            else if(!(roommatcher.matches())){
+                JOptionPane.showMessageDialog(null, "Emter Correct Room Number");
+            }
+            else if(available == null){
+                JOptionPane.showMessageDialog(null, "Available Status is Required");
+            }
+            else if(status == null){
+                JOptionPane.showMessageDialog(null, "Cleaninig Status is Required");
+            }
+            else if(price.equals("")){
+                JOptionPane.showMessageDialog(null, "Price is Required");
+            }
+            else if(!(pricematcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Price");
+            }
+            else if(type == null){
+                JOptionPane.showMessageDialog(null, "Bed Type is Required");
+            }
+            else{
+                try{
                 Conn c = new Conn();
                 
                 String query = "insert into rooms values('"+roomNumber +"','"+available+"','"+status+"','"+price+"','"+type+"')";
@@ -143,8 +176,9 @@ public class AddRooms extends JFrame implements ActionListener{
                 
                 setVisible(false);
                 
-            }catch(Exception e){
-                e.printStackTrace();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         }
         else if(ae.getSource() == cancel){
