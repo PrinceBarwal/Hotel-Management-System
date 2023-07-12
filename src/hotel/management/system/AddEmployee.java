@@ -194,6 +194,9 @@ public class AddEmployee extends JFrame implements ActionListener {
             Pattern namepattern = Pattern.compile("^[A-Za-z\\s'-]+$");
             Matcher namematcher = namepattern.matcher(name);
             
+            Pattern agepattern = Pattern.compile("[0-9]{1,2}$");
+            Matcher agematcher = agepattern.matcher(age);
+            
             if(name.equals("") ){
                 JOptionPane.showMessageDialog(null, "Name is Required");
             }
@@ -203,20 +206,35 @@ public class AddEmployee extends JFrame implements ActionListener {
             else if(age.equals("")){
                 JOptionPane.showMessageDialog(null, "Age is Required");
             }
+            else if(!(agematcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Age");
+            }
             else if(!(rbmale.isSelected()) && !(rbfemale.isSelected())){
                 JOptionPane.showMessageDialog(null, "Gender is Required");
             }
             else if(job == null){
                 JOptionPane.showMessageDialog(null, "Job is required" ); 
             }
+            else if(salary.equals("")){
+                JOptionPane.showMessageDialog(null, "Salary is Required");
+            }
             else if(!(salarymatcher.matches())){
                 JOptionPane.showMessageDialog(null, "Enter Correct Salary");
+            }
+            else if(phone.equals("")){
+                JOptionPane.showMessageDialog(null , "Enter Phone Number");
             }
             else if(!(phonematcher.matches())){
                 JOptionPane.showMessageDialog(null , "Enter Correct Phone Number");
             }
+            else if(email.equals("")){
+                JOptionPane.showMessageDialog(null, "Email is Required");
+            }
             else if(!(emailmatcher.matches())){
                 JOptionPane.showMessageDialog(null, "Enter Correct Email");
+            }
+            else if(aadhar.equals("")){
+                JOptionPane.showMessageDialog(null , "Aadhar is Required");
             }
             else if(!(aadharmatcher.matches())){
                 JOptionPane.showMessageDialog(null , "Enter a valid aadhar number ");
