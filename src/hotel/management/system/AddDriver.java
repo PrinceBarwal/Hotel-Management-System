@@ -2,6 +2,7 @@ package hotel.management.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.regex.*;
 
 
 public class AddDriver extends JFrame implements ActionListener{
@@ -62,6 +63,7 @@ public class AddDriver extends JFrame implements ActionListener{
         gendercombo = new JComboBox(genderoption);
         gendercombo.setBounds(190 , 200 , 150 , 30);
         gendercombo.setBackground(Color.WHITE);
+        gendercombo.setSelectedItem(null);
         add(gendercombo);
         
         
@@ -101,6 +103,7 @@ public class AddDriver extends JFrame implements ActionListener{
         availablecombo = new JComboBox(availableoption);
         availablecombo.setBounds(190 , 350 , 150 , 30);
         availablecombo.setBackground(Color.WHITE);
+        availablecombo.setSelectedItem(null);
         add(availablecombo);
         
         
@@ -162,7 +165,62 @@ public class AddDriver extends JFrame implements ActionListener{
             String available = (String)availablecombo.getSelectedItem();
             String location = tflocation.getText();
             
-            try{
+            
+//            ####### Add Validation #######
+            Pattern namepattern = Pattern.compile("^[A-Za-z\\s'-]+$");
+            Matcher namematcher = namepattern.matcher(name);
+            
+            Pattern agepattern = Pattern.compile("[0-9]{1,2}$");
+            Matcher agematcher = agepattern.matcher(age);
+            
+            Pattern carpattern = Pattern.compile("^[A-Za-z\\s'-]+$");
+            Matcher carmatcher = carpattern.matcher(car_company);
+            
+            Pattern modelpattern = Pattern.compile("^[A-Za-z0-9\\s'-]+$");
+            Matcher modelmatcher = modelpattern.matcher(car_model);
+            
+            Pattern locationpattern = Pattern.compile("^[A-Za-z0-9A-Za-z\\s'-]+$");
+            Matcher locationmatcher = locationpattern.matcher(location);
+            
+            
+            if(name.equals("")){
+                JOptionPane.showMessageDialog(null,"Name is Required");
+            }
+            else if(!(namematcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Name");
+            }
+            else if(age.equals("")){
+                JOptionPane.showMessageDialog(null, "Age is Required");
+            }
+            else if(!(agematcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Age");
+            }
+            else if(gender == null){
+                JOptionPane.showMessageDialog(null, "Gender is Required");
+            }
+            else if(car_company.equals("")){
+                JOptionPane.showMessageDialog(null, "Car Company is Required");
+            }
+            else if (!(carmatcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Car Company ");
+            }
+            else if(car_model.equals("")){
+                JOptionPane.showMessageDialog(null, "Car Model is Required");
+            }
+            else if(!(modelmatcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Model");
+            }
+            else if(available == null){
+                JOptionPane.showMessageDialog(null, "Available Status is Required");
+            }
+            else if(location.equals("")){
+                JOptionPane.showMessageDialog(null, "Driver Location is Required");
+            }
+            else if(!(locationmatcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Location");
+            }
+            else{
+                try{
                 Conn c = new Conn();
                 
                 String query = "insert into driver values('"+name +"','"+age+"','"+gender+"','"+car_company+"','"+car_model+"','"+available+"','"+location+"')";
@@ -173,9 +231,10 @@ public class AddDriver extends JFrame implements ActionListener{
                 
                 setVisible(false);
                 
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }   
+            } 
         }
         else if(ae.getSource() == cancel){
             setVisible(false);
