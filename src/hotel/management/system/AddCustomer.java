@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 import java.util.Date;
+import java.util.regex.*;
 
 
 public class AddCustomer extends JFrame implements ActionListener{
@@ -39,6 +40,7 @@ public class AddCustomer extends JFrame implements ActionListener{
         comboid = new JComboBox(idComboValues);
         comboid.setBounds(150 , 50 , 200 , 40);
         comboid.setBackground(Color.WHITE);
+        comboid.setSelectedItem(null);
         add(comboid);
         
         
@@ -88,8 +90,8 @@ public class AddCustomer extends JFrame implements ActionListener{
         group.add(female);
         
         
-//        ####### Add Job field #####
-        JLabel lblcountry = new JLabel("Age");
+//        ####### Add Country field #####
+        JLabel lblcountry = new JLabel("Country");
         lblcountry.setBounds(30 , 250 , 80 , 40 );
         lblcountry.setFont(new Font("Tahoma" , Font.PLAIN , 20));
         add(lblcountry);
@@ -100,7 +102,7 @@ public class AddCustomer extends JFrame implements ActionListener{
 
         
 //        ####### Allocation Room Number ####
-        JLabel lblallocation = new JLabel("Id");
+        JLabel lblallocation = new JLabel("Room");
         lblallocation.setBounds(30 , 300 , 80 , 40 );
         lblallocation.setFont(new Font("Tahoma" , Font.PLAIN , 20));
         add(lblallocation);
@@ -203,7 +205,62 @@ public class AddCustomer extends JFrame implements ActionListener{
             String time = checkintime.getText();
             String deposite = tfdeposite.getText();
             
-            try{
+//            ###### Add Validate field#####
+
+            Pattern numberpattern = Pattern.compile("[0-9]{12}$");
+            Matcher numbermatcher = numberpattern.matcher(number);
+            
+            Pattern namepattern = Pattern.compile("^[A-Za-z\\s'-]+$");
+            Matcher namematcher = namepattern.matcher(name);
+            
+            Pattern countrypattern = Pattern.compile("^[A-Za-z\\s'-]+$");
+            Matcher countrymatcher = countrypattern.matcher(country);
+            
+            Pattern roompattern = Pattern.compile("[0-9]{1,3}$");
+            Matcher roommatcher = roompattern.matcher(room);
+            
+            Pattern depositepattern = Pattern.compile("[0-9]{1,3}$");
+            Matcher depositematcher = depositepattern.matcher(deposite);
+            
+            
+            if(id == null){
+                JOptionPane.showMessageDialog(null, "Id is Required");
+            }
+            else if(number.equals("")){
+                JOptionPane.showMessageDialog(null, "Number is Required");
+            }
+            else if(!(numbermatcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct number");
+            }
+            else if(name.equals("")){
+                JOptionPane.showMessageDialog(null, "Name is Required");
+            }
+            else if(!(namematcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Name");
+            }
+            else if(!(male.isSelected()) && !(female.isSelected())){
+                JOptionPane.showMessageDialog(null, "Gender is Required");
+            }
+            else if(country.equals("")){
+                JOptionPane.showMessageDialog(null, "Country is Required");
+            }
+            else if(!(countrymatcher.matches())){
+            JOptionPane.showMessageDialog(null, "Enter Correct Country Name");
+            }
+            else if(room.equals("")){
+                JOptionPane.showMessageDialog(null, "Room number is Required");
+            }
+            else if(!(roommatcher.matches())){
+                JOptionPane.showMessageDialog(null, "Room is Required");
+            }
+            else if(deposite.equals("")){
+                JOptionPane.showMessageDialog(null, "Deposite amount is Required");
+            }
+            else if(!(depositematcher.matches())){
+                JOptionPane.showMessageDialog(null, "Enter Correct Amount");
+            }
+            else {
+                try{
                 Conn c = new Conn();
                 String query = "insert into customer values('"+id+"','"+number+"','"+name+"','"+gender+"','"+country+"','"+room+"','"+time+"','"+deposite+"')";
                 String query2 = "update rooms set available = 'Occupied' where roomNumber = '"+room+"'";
@@ -215,12 +272,11 @@ public class AddCustomer extends JFrame implements ActionListener{
                 
                 setVisible(false);
                 new Reception().setVisible(true);
-            }catch(Exception e){
-                e.printStackTrace();
+                
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
-            
-            
-            
         }
         else if(ae.getSource() == back){
             setVisible(false);
