@@ -219,7 +219,7 @@ public class AddCustomer extends JFrame implements ActionListener{
             Pattern roompattern = Pattern.compile("[0-9]{1,3}$");
             Matcher roommatcher = roompattern.matcher(room);
             
-            Pattern depositepattern = Pattern.compile("[0-9]{1,3}$");
+            Pattern depositepattern = Pattern.compile("[0-9]{3,5}$");
             Matcher depositematcher = depositepattern.matcher(deposite);
             
             

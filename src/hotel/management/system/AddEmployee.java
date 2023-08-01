@@ -32,10 +32,16 @@ public class AddEmployee extends JFrame implements ActionListener {
         
 //        ######## Age Field ########
         
-        JLabel lblage = new JLabel("Age : ");
+        JLabel lblage = new JLabel("Age   : ");
         lblage.setBounds(30 , 70 , 70 , 30 );
         lblage.setFont(new Font("Tahoma" , Font.PLAIN , 17));
         add(lblage);
+        
+//        ######### Add Important filed ######
+//        JLabel lblimp = new JLabel("*");
+//        lblimp.setBounds(60 , 70 , 20 , 30 );
+//        lblimp.setFont(new Font("Tahoma" , Font.PLAIN  , 17));
+//        add(lblimp);
         
         tfage = new JTextField();
         tfage.setBounds(150 , 70 , 200 , 30);
