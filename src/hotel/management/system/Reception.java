@@ -93,6 +93,7 @@ public class Reception extends JFrame implements ActionListener{
         roomStatus.setFont(new Font("Tahoma" , Font.PLAIN , 15));
         roomStatus.setForeground(Color.WHITE);
         roomStatus.setBackground(Color.BLACK);
+        roomStatus.addActionListener(this);
         add(roomStatus);
         
         
@@ -111,6 +112,7 @@ public class Reception extends JFrame implements ActionListener{
         search.setFont(new Font("Tahoma" , Font.PLAIN , 15));
         search.setForeground(Color.WHITE);
         search.setBackground(Color.BLACK);
+        search.addActionListener(this);
         add(search);
         
 //        #### Add Logout Button ###
@@ -163,6 +165,10 @@ public class Reception extends JFrame implements ActionListener{
         else if(ae.getSource() == customerInfo){
             setVisible(false);
             new CustomerInfo();
+        }
+        else if(ae.getSource() == search){
+            setVisible(false);
+            new SearchRoom();
         }
     }
     
