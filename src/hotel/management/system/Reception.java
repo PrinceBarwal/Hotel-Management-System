@@ -84,6 +84,7 @@ public class Reception extends JFrame implements ActionListener{
         update.setFont(new Font("Tahoma" , Font.PLAIN , 15));
         update.setForeground(Color.WHITE);
         update.setBackground(Color.BLACK);
+        update.addActionListener(this);
         add(update);
         
         
@@ -169,6 +170,10 @@ public class Reception extends JFrame implements ActionListener{
         else if(ae.getSource() == search){
             setVisible(false);
             new SearchRoom();
+        }
+        else if(ae.getSource() == update){
+            setVisible(false);
+            new UpdateCheck();
         }
     }
     
