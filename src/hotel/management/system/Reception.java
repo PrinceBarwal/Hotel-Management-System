@@ -75,6 +75,7 @@ public class Reception extends JFrame implements ActionListener{
         checkout.setFont(new Font("Tahoma" , Font.PLAIN , 15));
         checkout.setForeground(Color.WHITE);
         checkout.setBackground(Color.BLACK);
+        checkout.addActionListener(this);
         add(checkout);
         
         
@@ -183,6 +184,10 @@ public class Reception extends JFrame implements ActionListener{
         else if(ae.getSource() == pickup){
             setVisible(false);
             new PickUp();
+        }
+        else{
+            setVisible(false);
+            new CheckOut();
         }
     }
     

@@ -146,7 +146,7 @@ public class AddCustomer extends JFrame implements ActionListener{
         add(checkintime);
 
 
-//        ######## Add DEposite filed #####
+//        ######## Add Deposite filed #####
         JLabel lbldeposite = new JLabel("Deposite");
         lbldeposite.setBounds(30 , 400 , 150 , 40 );
         lbldeposite.setFont(new Font("Tahoma" , Font.PLAIN , 20));
