@@ -104,6 +104,7 @@ public class Reception extends JFrame implements ActionListener{
         pickup.setFont(new Font("Tahoma" , Font.PLAIN , 15));
         pickup.setForeground(Color.WHITE);
         pickup.setBackground(Color.BLACK);
+        pickup.addActionListener(this);
         add(pickup);
         
         
@@ -178,6 +179,10 @@ public class Reception extends JFrame implements ActionListener{
         else if(ae.getSource() == roomStatus){
             setVisible(false);
             new UpdateRoom();
+        }
+        else if(ae.getSource() == pickup){
+            setVisible(false);
+            new PickUp();
         }
     }
     
