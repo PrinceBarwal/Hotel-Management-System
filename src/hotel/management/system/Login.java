@@ -55,8 +55,54 @@ public class Login extends JFrame implements ActionListener{
         image.setBounds(350 , 10 , 200 , 200 );
         add(image);
         
+        password.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                performedAction();
+            }
+        });
+        
         setVisible(true);
     }
+    
+    public void performedAction(){
+        Conn c = new Conn();
+            String name = username.getText();
+            String pass = password.getText();
+            String query = "select * from login where username = '"+name+"' and password = '"+pass+"' ";
+            
+            try{
+                ResultSet rs = c.s.executeQuery(query);
+                if(rs.next()){
+                    setVisible(false);
+                    new Dashboard().setVisible(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Invalid Username and Password");
+                    JOptionPane.showMessageDialog(null,"Try Again");
+//                    setVisible(false);
+                }
+            }catch(Exception e){
+                System.out.println(e);
+            }
+//        setVisible(false);
+//        new Dashboard();
+    }
+    
+    public class TAdapter extends KeyAdapter{
+        
+        @Override
+        public void keyPressed(KeyEvent e){
+            int key = e.getKeyCode();
+//            String name = nametf.getText();
+            
+            
+            if(key == KeyEvent.VK_ENTER){
+//                open = true;            
+            }
+        }
+    }
+    
     
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == login){
@@ -87,6 +133,11 @@ public class Login extends JFrame implements ActionListener{
     
     
     public static void main(String[] args){
-        new Login();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Login();
+            }
+        });
     }
 }
